@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气查询</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: #f0f8ff;
+        }
+
+        input {
+            padding: 12px;
+            width: 250px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            margin-left: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #0056b3;
+            }
+
+        #result {
+            margin-top: 30px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .loading {
+            color: #666;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>天气查询</h1>
+    <input type="text" id="location" placeholder="输入城市，如 大连，沈阳 " />
+    <button onclick="queryWeather()">查询天气</button>
+
+    <div id="result"></div>
+
+    <script>
+    async function queryWeather() {
+        const location = document.getElementById('location').value.trim();
+        const resultDiv = document.getElementById('result');
+
+        if (!location) {
+            resultDiv.innerHTML = '<span class="error">请输入城市名称</span>';
+            return;
+        }
+
+        resultDiv.innerHTML = '<span class="loading">正在查询...</span>';
+
+        try {
+            const response = await fetch('/api/weather', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ location })
+            });
+
+            const data = await response.json();
+
+            if (data.results && data.results.length > 0) {
+                const weather = data.results[0];
+                const loc = weather.location;
+                const now = weather.now;
+
+                // 格式化更新时间（去掉秒和时区，显示得更友好）
+                let updateTime = weather.last_update || '未知';
+                try {
+                    updateTime = new Date(weather.last_update).toLocaleString('zh-CN');
+                } catch (e) {}
+
+                resultDiv.innerHTML = `
+                    <h2>${loc.name}（${loc.country}）</h2>
+                    <p>当前天气：${now.text}</p>
+                    <p>温度：${now.temperature} °C</p>
+                    <p>最后更新：${updateTime}</p>
+                `;
+            } else {
+                const msg = data.status || data.status_code || '城市未找到或请求失败';
+                resultDiv.innerHTML = `<span class="error">错误：${msg}</span>`;
+            }
+        } catch (err) {
+            resultDiv.innerHTML = '<span class="error">网络错误，请检查后端是否运行</span>';
+            console.error(err);
+        }
+    }
+
+    // 支持回车查询
+    document.getElementById('location').addEventListener('keypress', e => {
+        if (e.key === 'Enter') queryWeather();
+    });
+    </script>
+</body>
+</html>
