@@ -5,10 +5,9 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// ------------------- Ìæ»»³ÉÄãµÄÃÜÔ¿ -------------------
-const UID = 'PxmBBzVZUHS8TO6ds';
-const PRIVATE_KEY = 'SOEzWUwVJ3TZmbt3H';
-// ----------------------------------------------------
+// ------------------- æ›¿æ¢æˆä½ çš„å¯†é’¥ -------------------
+const UID = 'å…¬é’¥';
+const PRIVATE_KEY = 'ç§é’¥';
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -29,7 +28,7 @@ function generateSignature(ts, ttl = 1800) {
 app.post('/api/weather', async (req, res) => {
     const { location } = req.body;
     if (!location || location.trim() === '') {
-        return res.status(400).json({ error: 'ÇëÌá¹©³ÇÊÐÃû³Æ' });
+        return res.status(400).json({ error: 'è¯·æä¾›åŸŽå¸‚åç§°' });
     }
 
     const ts = Math.floor(Date.now() / 1000);
@@ -44,16 +43,16 @@ app.post('/api/weather', async (req, res) => {
         + `&sig=${sig}`;
 
     try {
-        // Node 18+ ×Ô´ø fetch£¬Ö±½ÓÊ¹ÓÃ
+        // Node 18+ è‡ªå¸¦ fetchï¼Œç›´æŽ¥ä½¿ç”¨
         const response = await fetch(apiUrl);
         const data = await response.json();
         res.json(data);
     } catch (error) {
-        console.error('»ñÈ¡ÌìÆøÊ§°Ü:', error);
-        res.status(500).json({ error: '»ñÈ¡ÌìÆøÊ§°Ü£¬ÇëÉÔºóÖØÊÔ' });
+        console.error('èŽ·å–å¤©æ°”å¤±è´¥:', error);
+        res.status(500).json({ error: 'èŽ·å–å¤©æ°”å¤±è´¥ï¼Œè¯·ç¨åŽé‡è¯•' });
     }
 });
 
 app.listen(PORT, () => {
-    console.log(`·þÎñÆ÷ÔËÐÐÔÚ http://localhost:${PORT}`);
+    console.log(`æœåŠ¡å™¨è¿è¡Œåœ¨ http://localhost:${PORT}`);
 });
