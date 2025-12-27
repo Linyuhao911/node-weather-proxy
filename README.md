@@ -11,6 +11,11 @@
 ## 项目成果
 项目整体成果令人满意：一个功能完整、可独立运行的天气查询网页，仅需 `node server.js` 即可在本地启动，支持任意城市实时天气查询，界面美观、响应迅速。这个项目不仅巩固了课堂所学的 Web 技术栈，还让我具备了独立开发小型全栈应用的能力，代码已整理并上传至 GitHub 作为个人作品集的一部分。
 
+## 项目截图
+<img width="583" height="328" alt="image" src="https://github.com/user-attachments/assets/bb4d866d-7584-430b-9495-b4f1d8bbe2b9" />
+<img width="583" height="328" alt="image" src="https://github.com/user-attachments/assets/dafe288d-3675-4c74-b013-c7625ca750d3" />
+
+
 ## 未来改进方向
 当然，项目仍存在改进空间：
 - 前端可增加多日预报、自动定位、空气质量等功能；
