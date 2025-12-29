@@ -14,6 +14,8 @@
 ## 项目截图
 <img width="583" height="328" alt="image" src="https://github.com/user-attachments/assets/bb4d866d-7584-430b-9495-b4f1d8bbe2b9" />
 <img width="583" height="328" alt="image" src="https://github.com/user-attachments/assets/dafe288d-3675-4c74-b013-c7625ca750d3" />
+<img width="688" height="407" alt="image" src="https://github.com/user-attachments/assets/ebc1759d-9013-47ab-a84a-f04857d5c166" />
+<img width="688" height="411" alt="image" src="https://github.com/user-attachments/assets/392f4eca-c33f-4f25-90e3-f7874b1b695a" />
 
 
 ## 未来改进方向
